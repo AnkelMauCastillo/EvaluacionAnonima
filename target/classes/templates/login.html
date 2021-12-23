@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="index::encabezado">
+
+</head>
+<body>
+
+
+
+	<nav th:insert="index::navbar"></nav>
+
+	<div id="contenedor" class="container">
+		<div class="row">
+			<!-- renglon -->
+
+			<div class="col-sm-4 mx-auto">
+				<!-- columna -->
+
+				<!--  <div th:if="${errorMensaje != null}">-->
+					<div th:if="${#servletContext.getAttribute('errorMensaje') != null}">
+					<div class="alert alert-danger alert-dismissible fade show"
+						role="alert">
+						<!--  <strong>[[${errorMensaje}]]</strong> -->
+						<strong>[[${#servletContext.getAttribute('errorMensaje')}]]</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+
+				</div>
+				
+
+
+
+				Iniciar sesion
+
+				<form id="forma-login" th:action="@{/usuario/login}" method="post">
+
+					<div class="card">
+						<div class="card-body">
+							<div class="form-label-group">
+								<input id="correo" type="text" name="correo"
+									class="form-control"> <label for="correo"></label>
+							</div>
+
+
+							<div class="form-label-group">
+								<input id="contrasenia" type="password" name="contrasenia"
+									class="form-control"> <label for="contrasenia"></label>
+							</div>
+							<input id="boton" type="submit" class="btn btn-primary" value="Iniciar">
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<th:block th:insert="index::script"></th:block>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="index::encabezado">
+
+</head>
+<body>
+	<nav th:insert="home::navbar"></nav>
+	<br>
+	<br>
+	<div id="contenedor" class="container">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="input-group mb-3">
+						<input type="text" class="form-control" placeholder="Buscar"
+							aria-label="Buscar" aria-describedby="basic-addon2">
+
+						<!-- <button th:onclick="obtenerProductos();" type="button" class="btn btn-secondary">Buscar</button>-->
+						<a th:onclick="obtenerActividadesPaginadas(1);" class="btn btn-secondary">Buscar</a>
+					</div>
+				</div>
+				<div class="col">
+					<button type="button" class="btn btn-success"
+						data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar</button>
+				</div>
+			</div>
+			<div id="resultado">
+				<div class="row">
+					<div class="col">Descripcion</div>
+					<div class="col">objetivos</div>
+					<div class="col">puntos Evaluar</div>
+					<div class="col">Puntaje</div>
+				</div>
+				<div class="row" th:each="actividad: ${actividades}">
+				<div class="col" th:text="${actividad.descripcion}"></div>
+				<div class="col" th:text="${actividad.objetivos}"></div>
+				<div class="col" th:text="${actividad.puntosEvaluar}"></div>
+				<div class="col" th:text="${actividad.puntaje}"></div>
+			</div>
+				
+				<div id="botonesPaginacion" class="col-md-8">
+
+					<nav aria-label="Pagination"
+						th:if="${actividades != null and actividades.totalPages gt 0}">
+						<ul class="pagination">
+							<li class="page-item"
+								th:classappend="${actividades.number eq 0} ? 'disabled'">
+								<a
+								class="page-link"
+								th:onclick="'obtenerActividadesPaginadas(\'' + ${actividades.number lt 2 ? 1 : actividades.number} + '\');'"
+								aria-label="Anterior" title="Anterior" rel="tooltip"> 
+								Anterior
+							</a></li>
+							<li class="page-item"
+								th:classappend="${i eq actividades.number + 1} ? 'active'"
+								th:each="i : ${#numbers.sequence(actividades.number + 1, actividades.totalPages > 10 + actividades.totalPages ? productos.number + 10 : productos.totalPages, 1)}">
+								<a class="page-link"
+								th:onclick="'obtenerActividadesPaginadas(\'' + ${i} + '\');'"
+								th:text="${i}" th:title="${'Page '+ i}" rel="tooltip"></a>
+							</li>
+							<li class="page-item disabled"
+								th:if="${actividades.number + 10 < actividades.totalPages}"><a
+								class="page-link svg-icon" href="#"> <span
+									data-feather="more-horizontal" width="20" height="20"></span>
+							</a></li>
+							<li class="page-item"
+								th:classappend="${actividades.number + 1 eq actividades.totalPages} ? 'disabled'">
+								<a class="page-link"
+								th:onclick="'obtenerActividadesPaginadas(\'' + ${actividades.number + 2} + '\');'"
+								aria-label="Siguiente" title="Siguiente" rel="tooltip">Siguiente
+							</a>
+							</li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Agregar actividad</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form id="agregar-prod-forma" th:action="@{/actividad/guardar}"
+					method="post">
+					<div class="modal-body">
+
+						<div class="form-label-group">
+							<input type="text" class="form-control"
+								placeholder="Descripcion" aria-label="descripcion"
+								aria-describedby="basic-addon2" id="descripcion" name="descripcion">
+							<label for="descripcion"></label>
+						</div>
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" placeholder="objetivos"
+								aria-label="objetivos" aria-describedby="basic-addon2" id="objetivos"
+								name="objetivos"> <label for="objetivos"></label>
+						</div>
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" placeholder="puntos evaluar"
+								aria-label="puntosEvaluar" aria-describedby="basic-addon2" id="puntosEvaluar"
+								name="puntosEvaluar"> <label for="puntosEvaluar"></label>
+						</div>
+
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" placeholder="puntaje"
+								aria-label="puntaje" aria-describedby="basic-addon2"
+								id="puntaje" name="puntaje"> <label for="puntaje"></label>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cancelar</button>
+						<input type="submit" class="btn btn-primary" value="Guardar">
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="modalExitosoError" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMensaje">
+						<th:block if="${mensajeExitoso != null}">
+							<p>[[${mensajeExitoso}]]</p>
+						</th:block>
+						<th:block if="${mensajeError != null}">
+							<p>[[${mensajeError}]]</p>
+						</th:block>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success"
+						data-bs-dismiss="modal">Aceptar</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<th:block th:insert="index::script"></th:block>
+</body>
+</html>

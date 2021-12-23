@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+		<head>
+			<meta charset="utf-8" />
+			<title>Registro Usuario</title>
+			<!-- Agregar bootstrap en cuestion de estilos css -->
+			<link rel="stylesheet" type="text/css"
+				href="webjars/bootstrap/5.1.3/css/bootstrap.min.css">
+			<link rel="stylesheet" type="text/css" href="css/estilos.css">
+		</head>
+	</head>
+<body>
+ <div id="contenedor" class="container">
+		<div class="row">
+			
+				Registro 
+
+				<form id="forma-login" th:action="@{/usuario/registro}" method="get">
+
+					<div class="card">
+						<div class="card-body">
+							<div class="form-label-group">
+								<input id="nombre" type="text" name="nombre" placeholder="Nombre"
+									class="form-control"> <label for="nombre"></label>
+							</div>
+
+
+							<div class="form-label-group">
+								<input id="apellidoPat" type="text" name="apellidoPat" placeholder="Apellido Paterno"
+									class="form-control"> <label for="apellidoPat"></label>
+							</div>
+							
+							
+							<div class="form-label-group">
+								<input id="apellidoMat" type="text" name="apellidoMat" placeholder="Apellido Materno"
+									class="form-control"> <label for="apellidoMat"></label>
+							</div>
+							
+							<div class="form-label-group">
+								<input id="matricula" type="text" name="matricula" placeholder="Matricula"
+									class="form-control"> <label for="matricula"></label>
+							</div>
+							
+							<div class="form-label-group">
+								<input id="correo" type="text" name="correo" placeholder="Correo"
+									class="form-control"> <label for="correo"></label>
+							</div>
+							
+							<div class="form-label-group">
+								<input id="contrasenia" type="password" name="contrasenia" placeholder="Contraseña"
+									class="form-control"> <label for="contrasenia"></label>
+							</div>
+							
+							
+							<input id="boton" type="submit" class="btn btn-primary" value="Registrar">
+						</div>
+					</div>
+				</form>
+
+
+			</div>
+
+		</div>
+
+	</div>
+</body>
+</html>
