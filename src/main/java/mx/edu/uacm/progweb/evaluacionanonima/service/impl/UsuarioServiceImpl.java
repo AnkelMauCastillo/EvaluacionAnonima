@@ -46,12 +46,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario registrarUsuario(Usuario usuario) throws AplicacionExcepcion {
 		if (log.isDebugEnabled())
-			log.debug(" > Entrando a registrarUsuario");
+			log.debug(" > Entrando a UsuarioService.registrarUsuario");
 		
 		 Usuario usuarioGuardado = null;
 		 
 		 try {
-			 usuarioGuardado = usuarioRepository.save(usuario);
+			usuarioGuardado = usuarioRepository.save(usuario);
+		
 		 } catch (DataAccessException e) {
 			 log.error(e.getMessage());
              throw new AplicacionExcepcion("Error al guardar el registro");		

@@ -42,8 +42,7 @@ public class ActividadServiceImpl implements ActividadService {
 		
 		} catch (DataAccessException e) {
 			log.error(e.getMessage());
-			//Hardcode
-			//TODO implementar localizacion mediante message resources
+			
 			throw new AplicacionExcepcion("Hubo un error al guardar el registro");
 		}
 		

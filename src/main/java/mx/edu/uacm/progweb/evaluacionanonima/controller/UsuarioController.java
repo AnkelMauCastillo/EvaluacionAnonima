@@ -21,78 +21,73 @@ import mx.edu.uacm.progweb.evaluacionanonima.service.UsuarioService;
 @Slf4j
 public class UsuarioController {
 	
-	@Autowired
-	private UsuarioService usuarioService;
+  @Autowired
+  private UsuarioService usuarioService;
+  @Autowired
+  private HttpSession httpSession;
+  private String registrar;
+  private ServletContext servletContext;
 	
-	@Autowired
-	private HttpSession httpSession;
-	
-	private ServletContext servletContext;
-	
-	public UsuarioController(ServletContext servletContext) {
+  public UsuarioController(ServletContext servletContext) {
 		this.servletContext = servletContext;
-	}
+  }
 	
-	@PostMapping("/login")
-	public String iniciarSesion(@RequestParam("correo") String correo, @RequestParam("contrasenia") String password,
-			Model model) {
+  @PostMapping("/login")
+  public String iniciarSesion(@RequestParam("correo") String correo,
+		                  @RequestParam("contrasenia") String password,
+			               Model model) {
+	if(log.isDebugEnabled())
+	   log.debug("> Entrando al metodo iniciarSesion <");
 		
-		if(log.isDebugEnabled())
-			log.debug("> Entrando al metodo iniciarSesion <");
+	Usuario usuario = usuarioService.obtenerUsuarioPorCorreoYContrasenia(correo, password);
 		
-		Usuario usuario = usuarioService.obtenerUsuarioPorCorreoYContrasenia(correo, password);
-		
-		if(usuario != null) {
-			
-			httpSession.setAttribute("usuarioLogueado", usuario);
-			
-		} else {
-			
-			servletContext.setAttribute("errorMensaje", "Usuario/Contrasenia no validos");
-			return "redirect:/login";
-		}
-		
-		//si fue exitoso te redirecciona a la vista home con el atributo en sesion llamado usuarioLogueado
-		return "redirect:/home";
-	}
-	
-	@GetMapping("/logout")
-	public String logout() {
-		
-		httpSession.removeAttribute("usuarioLogueado");
-		
+	if(usuario != null) {
+	   httpSession.setAttribute("usuarioLogueado", usuario);
+    } else {
+	    servletContext.setAttribute("errorMensaje", "Usuario/Contrasenia no validos");
+	    return  "redirect:/login";
+    }   	
+	 return  "redirect:/home";
+  }
+
+  @GetMapping("/logout")
+  public String logout() {
+    httpSession.removeAttribute("usuarioLogueado");
 		return "redirect:/";
-	}
+  }
 	
 
-	@GetMapping("/initlogin")
-	public String iniciarLogin() {
-		
-		servletContext.removeAttribute("errorMensaje");
-		
-		return "redirect:/login";
-	}
+  @GetMapping("/initlogin")
+  public String iniciarLogin() {
+    servletContext.removeAttribute("errorMensaje");
+    return "redirect:/login";
+  }
   
   @GetMapping("/registro")
   public String registrarUsuario(Model model, Usuario usuario) {
-	  if(log.isDebugEnabled()) {
-		  log.debug(">Entrando a usuarioController.registrarusuario");
-		  log.debug("Usuario {}", usuario)	;
-		  
-		}
-	  Usuario usuarioGuardado = null;
-	   try {
+    if(log.isDebugEnabled()) {
+      log.debug(">Entrando a usuarioController.registrarusuario");
+      log.debug("Usuario {}", usuario)	;
+    }
+    
+    if (usuario.getNombre() != null) {
+    	
+      try {
+		Usuario usuarioGuardado;
 		usuarioGuardado = usuarioService.registrarUsuario(usuario);
+		
 		if (usuarioGuardado != null && usuarioGuardado.getId() != null)
 			model.addAttribute("mensajeExitoso","Registro guardado exitosamente");
-	   } catch (AplicacionExcepcion e) {
-		 log.error(e.getMessage());
-		 model.addAttribute("mensajeError", e.getMessage());
-	  
+      } catch (AplicacionExcepcion e) {
+	    log.error(e.getMessage());
+	    model.addAttribute("mensajeError", e.getMessage());
 	  }
-		return "redirect:/registro";
-  }
-	
-	
+      
+      registrar = "redirect:/";
+     } else {
+			 registrar = "redirect:/registro";
+     }
+		return registrar;
+	  }
 
 }
