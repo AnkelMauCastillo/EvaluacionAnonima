@@ -26,13 +26,13 @@
 				</div>
 			</div>
 			<div class="row">
-				<div class="col">Descripcion</div>
-				<div class="col">Objetivos</div>
-				<div class="col">Puntos a Evaluar</div>
-				<div class="col">Puntaje</div>
+				<div class="col"><b>Descripcion</b></div>
+				<div class="col"><b>Objetivos</b></div>
+				<div class="col"><b>Puntos a Evaluar</b></div>
+				<div class="col"><b>Puntaje</b></div>
 			</div>
 			<div class="row" th:each="actividad: ${actividades}">
-				<div class="col" th:text="${actividad.descripcion}"></div>
+			    <div class="col" th:text="${actividad.descripcion}"></div>
 				<div class="col" th:text="${actividad.objetivos}"></div>
 				<div class="col" th:text="${actividad.puntosEvaluar}"></div>
 				<div class="col" th:text="${actividad.puntaje}"></div>

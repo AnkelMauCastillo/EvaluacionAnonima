@@ -18,9 +18,6 @@ public class ActividadServiceImplTest {
 	@Autowired
 	private ActividadService actividadService;
 	
-	//Spring resuelva la inyeccion de dependencias es decir la creacion de instancias dentro de una clase
-	//private ProductoService productoService = new ProductoServiceImpl();
-	
 	@Test
 	public void debeObtenerActividades() {
 		

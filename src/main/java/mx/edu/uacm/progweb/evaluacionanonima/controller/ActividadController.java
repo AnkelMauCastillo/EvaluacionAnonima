@@ -81,7 +81,7 @@ public class ActividadController {
 		Page<Actividad> actividadesPaginadas = acitividadService.obtenerActividadesPaginadas(PageRequest.of(paginaActual-1, tamanioPagina));
 		
 		
-		model.addAttribute("productos", actividadesPaginadas);
+		model.addAttribute("actividades", actividadesPaginadas);
 		
 		int totalPaginas = actividadesPaginadas.getTotalPages();
 		

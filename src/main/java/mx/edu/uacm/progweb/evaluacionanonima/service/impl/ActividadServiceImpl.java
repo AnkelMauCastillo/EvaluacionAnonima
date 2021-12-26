@@ -18,7 +18,6 @@ import mx.edu.uacm.progweb.evaluacionanonima.service.ActividadService;
 @Slf4j
 public class ActividadServiceImpl implements ActividadService {
 	
-	//inyeccion de dependencias
 	@Autowired
 	private ActividadRepository actividadRepository;
 

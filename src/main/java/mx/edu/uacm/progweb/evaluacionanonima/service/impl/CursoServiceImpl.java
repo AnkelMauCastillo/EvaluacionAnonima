@@ -29,7 +29,7 @@ public class CursoServiceImpl implements CursoService {
 	}
 
 	
-	public Curso agregarCurso(Curso curso) throws AplicacionExcepcion {
+	public Curso guardarCurso(Curso curso) throws AplicacionExcepcion {
 		
 		if(log.isDebugEnabled())
 			log.debug("> Entrando a agregarActividad <");
@@ -42,8 +42,7 @@ public class CursoServiceImpl implements CursoService {
 		
 		} catch (DataAccessException e) {
 			log.error(e.getMessage());
-			//Hardcode
-			//TODO implementar localizacion mediante message resources
+			
 			throw new AplicacionExcepcion("Hubo un error al guardar el registro");
 		}
 		

@@ -29,7 +29,7 @@ public class CursoController {
 	private CursoService cursoService;
 	
 	
-	@PostMapping("/guardar")
+	@GetMapping("/guardarcurso")
 	public String guardarCurso(Model model, Curso curso) {
 		if(log.isDebugEnabled()) {
 			log.debug("> Entrando a CursoController.guardarCurso");
@@ -39,7 +39,7 @@ public class CursoController {
 		Curso cursoGuardado = null;
 		
 		try {
-			cursoGuardado = cursoService.agregarCurso(curso);
+			cursoGuardado = cursoService.guardarCurso(curso);
 			if(cursoGuardado != null && cursoGuardado.getId() != null)
 				model.addAttribute("mensajeExitoso", "Registro guardado exitosamente");
 		} catch (AplicacionExcepcion e) {

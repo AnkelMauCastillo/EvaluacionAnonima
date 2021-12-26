@@ -16,7 +16,7 @@
 						<input type="text" class="form-control" placeholder="Buscar"
 							aria-label="Buscar" aria-describedby="basic-addon2">
 
-						<!-- <button th:onclick="obtenerProductos();" type="button" class="btn btn-secondary">Buscar</button>-->
+						
 						<a th:onclick="obtenerActividadesPaginadas(1);" class="btn btn-secondary">Buscar</a>
 					</div>
 				</div>
@@ -87,7 +87,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<form id="agregar-prod-forma" th:action="@{/actividad/guardar}"
+				<form id="agregar-actividad-forma" th:action="@{/actividad/guardar}"
 					method="post">
 					<div class="modal-body">
 

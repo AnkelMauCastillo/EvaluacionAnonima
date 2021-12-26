@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="index::encabezado">
+
+</head>
+<body>
+	<nav th:insert="home::navbar"></nav>
+<div id="contenedor" class="container">
+		<div class="row">
+			 <div class="col-sm-4 mx-auto">
+			 <div th:if="${#servletContext.getAttribute('errorMensaje') != null}">
+					<div class="alert alert-danger alert-dismissible fade show"
+						role="alert">
+						<strong>[[${#servletContext.getAttribute('errorMensaje')}]]</strong>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"
+							aria-label="Close"></button>
+					</div>
+
+				</div>
+				
+				<h2> Registro De Cursos </h2> <br> 	
+	             
+				<form id="forma-registro-curso" th:action="@{/curso/guardarcurso}" method="get">
+
+					<div class="card">
+						<div class="card-body">
+							<div class="form-label-group">
+								<input id="nombre" type="text" name="nombre" placeholder="Nombre del curso"
+									class="form-control"> <label for="nombre"></label>
+							</div>
+                            <input id="boton" type="submit" class="btn btn-primary" value="Registrar">
+
+						</div>
+					</div>
+				</form>
+			</div>
+	   </div>
+	</div>
+  <th:block th:insert="index::script"></th:block>
+</body>
+</html>

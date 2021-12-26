@@ -70,7 +70,7 @@ public class UsuarioController {
       log.debug("Usuario {}", usuario)	;
     }
     
-    if (usuario.getNombre() != null) {
+    if (usuario.getNombre() != null && usuario.getCorreo() != null) {
     	
       try {
 		Usuario usuarioGuardado;
@@ -83,7 +83,7 @@ public class UsuarioController {
 	    model.addAttribute("mensajeError", e.getMessage());
 	  }
       
-      registrar = "redirect:/";
+      registrar = "redirect:/login";
      } else {
 			 registrar = "redirect:/registro";
      }

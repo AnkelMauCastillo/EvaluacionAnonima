@@ -22,7 +22,7 @@ public interface CursoService {
 	 * @return
 	 * @throws AplicacionExcepcion
 	 */
-	Curso agregarCurso(Curso curso) throws AplicacionExcepcion;
+	Curso guardarCurso(Curso curso) throws AplicacionExcepcion;
 	/**
 	 * Metodo para obtener actividades de manera paginada
 	 * @param pageable
