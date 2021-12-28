@@ -36,7 +36,8 @@ var registrarUsuario = function() {
 
 var guardarCurso = function() {
 	var nombre =$("nombre").val();
-	$.get("curso/guardarcurso", {'nombre':nombre},
+	var descripcion =$("#descripcion").val();
+	$.get("curso/guardarcurso", {'nombre':nombre , 'descripcion':descripcion},
 	function(fragmento){
 		$("#contenedor").replaceWith(fragmento);
 	});
@@ -186,14 +187,18 @@ $(document).ready(function () {
 	submitHandler: function(form) {
 		
 	var nombre = $("#nombre").val();
-	
+	var descripcion =$("#descripcion").val();
         
 		
-		$.get("/curso/guardarcurso", {'nombre':nombre },  function( fragmento ) {
+		$.get("/curso/guardarcurso", {'nombre':nombre ,'descripcion':descripcion},  function( fragmento ) {
 
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(fragmento);
-				newDoc.close();
+				
+				$('#modalMensaje').replaceWith(fragmento);
+				
+				var myModalExample = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalGuardarCurso'));
+				myModalExample.hide();
+				var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
+				myModal.show();
 				
 		});
 		
@@ -215,8 +220,8 @@ $(document).ready(function () {
 			
 		},
 		objetivos: {
-			required: true,
-			digits:true
+			required: true
+			
 		},
 		puntosEvaluar:{
 			required:true
@@ -269,17 +274,25 @@ $(document).ready(function () {
 		});
 	
 	};
-	
-	obtenerActividadesPaginadas = function(pagina) {
-	
 
-	$.get("/actividad/buscarPaginado", {page: pagina}, function( fragmento ) {
- 			$("#resultado").replaceWith(fragmento);
+	obtenerCursos = function() {
+	
+		$.get("/curso/buscar", {}, function(fragmento){
+			 	var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+			
 		});
+	
 	};
+
+    
+   
+   
     
     
    });
+   
    
    
   

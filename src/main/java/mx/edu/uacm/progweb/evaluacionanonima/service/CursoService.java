@@ -23,11 +23,8 @@ public interface CursoService {
 	 * @throws AplicacionExcepcion
 	 */
 	Curso guardarCurso(Curso curso) throws AplicacionExcepcion;
-	/**
-	 * Metodo para obtener actividades de manera paginada
-	 * @param pageable
-	 * @return
-	 */
-	Page<Curso> obtenerCursosPaginados(Pageable pageable);
+	
+    
 
+	void eliminarCurso(Curso curso) throws AplicacionExcepcion;
 }

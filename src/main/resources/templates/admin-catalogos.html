@@ -15,31 +15,30 @@
 					<div class="input-group mb-3">
 						<input type="text" class="form-control" placeholder="Buscar"
 							aria-label="Buscar" aria-describedby="basic-addon2">
-
-						
 						<a th:onclick="obtenerActividades();" class="btn btn-secondary">Buscar</a>
 					</div>
 				</div>
 				<div class="col">
 					<button type="button" class="btn btn-success"
-						data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar</button>
+						data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar Actividad</button>
 				</div>
 			</div>
 			<div class="row">
+				<div class="col"><b>Nombre</b></div>
 				<div class="col"><b>Descripcion</b></div>
-				<div class="col"><b>Objetivos</b></div>
 				<div class="col"><b>Puntos a Evaluar</b></div>
-				<div class="col"><b>Puntaje</b></div>
+				<div class="col"><b>Acciones</b></div>
 			</div>
 			<div class="row" th:each="actividad: ${actividades}">
 			    <div class="col" th:text="${actividad.descripcion}"></div>
 				<div class="col" th:text="${actividad.objetivos}"></div>
 				<div class="col" th:text="${actividad.puntosEvaluar}"></div>
-				<div class="col" th:text="${actividad.puntaje}"></div>
+				<div class="col"><a data-bs-toggle="modal" data-bs-target="#modalBorrarActividad"> Borrar</a></div>
 			</div>
 		</div>
 	</div>
-
+	
+ <!-- Ventana modal para el registro de actividades  -->
 	<div class="modal fade" id="exampleModal" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog">
@@ -90,7 +89,34 @@
 			</div>
 		</div>
 	</div>
+	
+	<!-- modal para el borrado  falta implementarlo en evaluacion.jp-->
+	<div class="modal fade" id="modalBorrarActividad" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title">Borrar Curso</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<form id="borrarCurso" th:action="@{/actividad/eliminaractividad}"
+					method="get">
+					<div class="modal-body">
+                     <p> &iquest;Estas Seguro de borrar el registro? </p> 
 
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-bs-dismiss="modal">Cancelar</button>
+						<input type="submit" class="btn btn-primary" value="Aceptar">
+
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+     
 	<!-- Modal -->
 	<div class="modal fade" id="modalExitosoError" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">

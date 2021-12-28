@@ -29,5 +29,7 @@ public interface ActividadService {
 	 * @return
 	 */
 	Page<Actividad> obtenerActividadesPaginadas(Pageable pageable);
+	
+	void BorrarActividad(Actividad actividad) throws AplicacionExcepcion;
 
 }

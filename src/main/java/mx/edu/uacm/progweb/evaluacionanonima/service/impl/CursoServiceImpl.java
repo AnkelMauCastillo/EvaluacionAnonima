@@ -51,10 +51,20 @@ public class CursoServiceImpl implements CursoService {
 	}
 
 
+
 	@Override
-	public Page<Curso> obtenerCursosPaginados(Pageable pageable) {
+	public void eliminarCurso(Curso curso) throws AplicacionExcepcion {
+		if (log.isDebugEnabled())
+			log.debug("> entrando a eliminarCurso ");
 		
-		return cursoRepository.findAll(pageable);
+		try { 
+			cursoRepository.delete(curso);
+			
+		}catch (DataAccessException e) {
+			log.error(e.getMessage());
+			throw new AplicacionExcepcion("Error al eliminar el registro");
+		}
+		
 	}
 
 

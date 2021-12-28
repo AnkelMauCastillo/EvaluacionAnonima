@@ -10,4 +10,6 @@ public interface ActividadRepository extends CrudRepository<Actividad, Long> {
 	
 	Page<Actividad> findAll(Pageable pageable);
 
+	void deleteById(String nombre);
+
 }

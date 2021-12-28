@@ -57,6 +57,23 @@ public class ActividadServiceImpl implements ActividadService {
 	}
 
 
+	@Override
+	public void BorrarActividad(Actividad actividad) throws AplicacionExcepcion {
+		if (log.isDebugEnabled())
+			log.debug("> entrando a BorrarActividad ");
+		
+		try { 
+			actividadRepository.delete(actividad);
+			
+		}catch (DataAccessException e) {
+			log.error(e.getMessage());
+			throw new AplicacionExcepcion("Error al eliminar el registro");
+		}
+		
+		
+	}
+
+
 	
 
 }

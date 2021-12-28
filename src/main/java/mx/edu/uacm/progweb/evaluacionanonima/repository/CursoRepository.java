@@ -9,4 +9,8 @@ public interface CursoRepository extends CrudRepository<Curso, Long> {
 	
 	Page<Curso> findAll(Pageable pageable);
 
+	void deleteById(Curso curso);
+
+	
+
 }
