@@ -17,8 +17,8 @@ public class Actividad {
   private String descripcion;
   private String objetivos;
   private String puntosEvaluar;
-  private double puntaje;
-	
+  private double puntaje;  
+
   public Actividad() {
 	  
   }

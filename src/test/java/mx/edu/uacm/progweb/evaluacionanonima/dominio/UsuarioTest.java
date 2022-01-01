@@ -29,17 +29,17 @@ public class UsuarioTest {
 	
 	
 	@Test
-	@Disabled
+	
 	public void debeGuardarUsuario() {
 		log.debug("Entrando a debeGuardarUsuario");
 		
 		Usuario usuario = new Usuario();
-		usuario.setNombre("Karla");
-		usuario.setApellidoPat("Jimenez");
-		usuario.setApellidoMat("Lara");
-		usuario.setMatricula("1121");
-		usuario.setCorreo("karla@uacm.edu.mx");
-        usuario.setContrasenia( passwordEncoder.encode("123") );
+		usuario.setNombre("Juan");
+		usuario.setApellidoPat("Mendoza");
+		usuario.setApellidoMat("Contreras");
+		usuario.setMatricula("16-003-0196");
+		usuario.setCorreo("andres@uacm.edu.mx");
+        usuario.setContrasenia( passwordEncoder.encode("1234") );
 		
 		Usuario usuarioGuardado = usuarioRepository.save(usuario);
 		
@@ -48,6 +48,7 @@ public class UsuarioTest {
 	}
     
 	@Test
+	@Disabled
 	public void debeusuarioCurso() {
 		
 		Curso c = new Curso();

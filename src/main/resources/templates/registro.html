@@ -9,19 +9,8 @@
  
  <div id="contenedor" class="container">
 		<div class="row">
-			 <div class="col-sm-4 mx-auto">
-			 <div th:if="${#servletContext.getAttribute('errorMensaje') != null}">
-					<div class="alert alert-danger alert-dismissible fade show"
-						role="alert">
-						<strong>[[${#servletContext.getAttribute('errorMensaje')}]]</strong>
-						<button type="button" class="btn-close" data-bs-dismiss="alert"
-							aria-label="Close"></button>
-					</div>
-
-				</div>
-				
+			 <div class="col-sm-4 mx-auto">	
 				<h2> Registro De Usuario</h2> <br> 
-                
 				<form id="forma-registro" th:action="@{/usuario/registro}" method="get">
 
 					<div class="card">
@@ -59,15 +48,17 @@
 							</div>
 							
 							<div >
-							    <!-- <select id="curso" name ="curso" onchange="seleccionCurso()" class="form-select" aria-label="Default select example">
-
-                                <option value="1">Programacion web</option>
+							    
+							    <select id="curso-select" name ="curso-select" onchange="seleccionCurso()" class="form-select" aria-label="Default select example">
+                                
+                                <option value="">Programacion web</option>
                                 <option value="2">Aseguramiento</option>
                                 <option value="3">Sistemas operativos</option>
-                             </select> -->
+                             </select> 
 							</div>
 							
 							<input id="boton" type="submit" class="btn btn-primary" value="Registrar">
+							
 						</div>
 					</div>
 				</form>
@@ -77,6 +68,36 @@
 
 		</div>
     </div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modalExitosoError" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMensaje">
+						<th:block if="${mensajeExitoso != null}">
+							<p>[[${mensajeExitoso}]]</p>
+						</th:block>
+						<th:block if="${mensajeError != null}">
+							<p>[[${mensajeError}]]</p>
+						</th:block>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success"
+						data-bs-dismiss="modal">Aceptar</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	<th:block th:insert="index::script"></th:block>
 </body>

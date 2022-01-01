@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="index::encabezado">
+
+</head>
+<body>
+ <nav th:insert="home2::navbar"></nav>
+ 
+ <div id="contenedor" class="container">
+		<div class="row">
+			 <div class="col-sm-5 ">	
+				<h2> Respuesta a Actividad</h2> <br> 
+                
+				<form id="forma-respuesta" th:action="@{/respuesta/guardar}" method="post">
+
+					<div class="card">
+						<div class="card-body">
+							
+							<div class="form-label-group">
+							    
+							    <select id="actividad-select" name ="actividad-select" onchange="seleccionActividad()" class="form-select" aria-label="Default select example">
+                               
+                  
+                             </select> 
+							</div>
+							<br>
+							<div class="form-label-group">
+								<input id="github" type="url" name="github" placeholder="Enlace a tu repositorio de github"
+								pattern=".+\.com" class="form-control"> <label for="github"></label>
+							</div>
+							
+							
+							<div class="form-label-group">
+								<input id="dirve" type="url" name="drive" placeholder="Enlace a tu repositorio de drive"
+								pattern=".+\.com" class="form-control"> <label for="drive"></label>
+							</div>
+							
+							<input id="boton" type="submit" class="btn btn-primary" value="Enviar">
+							
+						</div>
+					</div>
+				</form>
+			</div>
+
+		</div>
+    </div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modalExitosoError" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMensaje">
+						<th:block if="${mensajeExitoso != null}">
+							<p>[[${mensajeExitoso}]]</p>
+						</th:block>
+						<th:block if="${mensajeError != null}">
+							<p>[[${mensajeError}]]</p>
+						</th:block>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success"
+						data-bs-dismiss="modal">Aceptar</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:insert="index::script"></th:block>
+</body>
+</html>

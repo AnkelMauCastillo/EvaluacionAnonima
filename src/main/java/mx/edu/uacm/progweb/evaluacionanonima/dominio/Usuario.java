@@ -8,13 +8,15 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+
+
 import lombok.Data;
 
 
 
 @Entity
 @Data
-public class Usuario {
+public class Usuario  {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +27,7 @@ public class Usuario {
 	private String matricula;
 	private String correo;
 	private String contrasenia;
+	private String rol;
 	
 	@ManyToOne
 	@JoinColumn(name = "curso_id", foreignKey = @ForeignKey(name="CURSO_ID_FK"))
@@ -33,5 +36,12 @@ public class Usuario {
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
+
+	public String getUsername() {
+		
+		return nombre;
+	}
+
+
 	
 }

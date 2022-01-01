@@ -26,6 +26,7 @@ public class UsuarioController {
   @Autowired
   private HttpSession httpSession;
   private String registrar;
+  private String paginaIni;
   private ServletContext servletContext;
 	
   public UsuarioController(ServletContext servletContext) {
@@ -43,11 +44,20 @@ public class UsuarioController {
 		
 	if(usuario != null) {
 	   httpSession.setAttribute("usuarioLogueado", usuario);
+	 if (usuario.getRol().equals("USER")) {
+		   
+		   paginaIni ="redirect:/home2";
+	 } else {
+		paginaIni = "redirect:/home";
+	 }
     } else {
 	    servletContext.setAttribute("errorMensaje", "Usuario/Contrasenia no validos");
-	    return  "redirect:/login";
+	    paginaIni = "redirect:/login";
+	   
     }   	
-	 return  "redirect:/home";
+	
+		return paginaIni;
+		
   }
 
   @GetMapping("/logout")
@@ -83,7 +93,7 @@ public class UsuarioController {
 	    model.addAttribute("mensajeError", e.getMessage());
 	  }
       
-      registrar = "redirect:/login";
+      registrar = "registro::#modalMensaje";
      } else {
 			 registrar = "redirect:/registro";
      }

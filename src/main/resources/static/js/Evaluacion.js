@@ -1,9 +1,11 @@
 function seleccionarCurso(){
-	var cod = document.getElementsById("curso");
+	var cod = document.getElementsById("curso-select");
 	var selected = cod.options[combo.selectedIndex].text
 	alert(selected);
 	
 };
+
+
 
 var iniciarSesion = function() {
 	
@@ -25,7 +27,7 @@ var registrarUsuario = function() {
 	var matricula = $("#matricula").val();
 	var correo = $("#correo").val();
 	var password = $("#contrasenia").val(); 
-	
+	// falta el curso 
 	$.get("/usuario/registro", {'nombre':nombre,'apellidoPat':apellidopat,'aplliedoMat':apellidomat,'matricula':matricula,
 	       'correo':correo, 'contrasenia':password },
 	       function( fragmento ) {
@@ -152,13 +154,15 @@ $(document).ready(function () {
 	var password = $("#contrasenia").val(); 
         
 		
-		$.get("/usuario/registro", {'nombre':nombre,'apellidoPat':apellidopat,'aplliedoMat':apellidomat,'matricula':matricula,
+		$.get("/usuario/registro", {'nombre':nombre,'apellidoPat':apellidopat,'apellidoMat':apellidomat,'matricula':matricula,
 	       'correo':correo, 'contrasenia':password },  function( fragmento ) {
 
-				var newDoc = document.open("text/html", "replace");
-				newDoc.write(fragmento);
-				newDoc.close();
-			
+				
+				
+				$('#modalMensaje').replaceWith(fragmento);
+				
+				var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
+				myModal.show();
 	 			
 		});
 		
@@ -263,7 +267,74 @@ $(document).ready(function () {
 	}
 
 	});
+	
+	// respuesta de actividad 
+	 $("#forma-respuesta").submit(function(e) {
+		
+		e.preventDefault();
+		
+	}).validate({
+	rules: {
+		actividad: {
+			required: true
+		},
+		github: {
+			required: true
+		}
+	},
+	errorPlacement: function(error, element) {
+		error.appendTo(element.parent());
+	},
+	submitHandler: function(form) {
+		
+	var actividad = $("#actividad").val();
+	var github = $("#github").val();
+	var drive = $("#drive").val();
+	 
+        
+		
+		$.post("/respuesta/guardar", {'github':github,'drive':drive,'actividad':actividad},  function( fragmento ) {
 
+				
+				
+				$('#modalMensaje').replaceWith(fragmento);
+				
+				var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
+				myModal.show();
+	 			
+		});
+		
+		return false;
+	}
+
+	});
+	
+ // funciones 	
+  function seleccionaActividad(){
+	var id_actividad = $("seleccionarActividad").val();
+	
+	
+	$.ajax ({
+		 type: "GET",
+		 url:"/curso/buscar",
+		 beforeSend: function(objeto){
+			
+		},success:function(data){
+			$("#actividad-select").html(data);
+		}
+	});
+};
+ 
+  obtenerCursos = function() {
+	
+		$.get("/curso/buscar", {}, function(fragmento){
+			 	var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+			
+		});
+	
+	};
 	obtenerActividades = function() {
 	
 		$.get("/actividad/buscar", {}, function(fragmento){
@@ -275,16 +346,7 @@ $(document).ready(function () {
 	
 	};
 
-	obtenerCursos = function() {
 	
-		$.get("/curso/buscar", {}, function(fragmento){
-			 	var newDoc = document.open("text/html", "replace");
-				newDoc.write(fragmento);
-				newDoc.close();
-			
-		});
-	
-	};
 
     
    

@@ -26,13 +26,13 @@
 				</div>
 				
 			 <h2>Iniciar sesion</h2><br>	
-
+              
 				<form id="forma-login" th:action="@{/usuario/login}" method="post">
-
+               <div class="p-3 mb-2 bg-secondary text-white">
 					<div class="card">
 						<div class="card-body">
 							<div class="form-label-group">
-								<input id="correo" type="text" name="correo"  placeholder="Correo"
+								<input id="correo" type="text" name="correo"  placeholder=" Correo" 
 									class="form-control"> <label for="correo"></label>
 							</div>
 
@@ -44,8 +44,9 @@
 							<input id="boton" type="submit" class="btn btn-primary" value="Iniciar">
 						</div>
 					</div>
+			    </div>
 				</form>
-
+            
 
 			</div>
 

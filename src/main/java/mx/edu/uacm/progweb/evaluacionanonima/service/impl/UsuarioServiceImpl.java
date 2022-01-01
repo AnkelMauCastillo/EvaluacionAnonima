@@ -51,6 +51,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 		 Usuario usuarioGuardado = null;
 		 
 		 try {
+			usuario.setRol("USER");
+			usuario.setContrasenia(passwordEncoder.encode(usuario.getContrasenia())); 
 			usuarioGuardado = usuarioRepository.save(usuario);
 		
 		 } catch (DataAccessException e) {

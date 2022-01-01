@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +16,7 @@ import mx.edu.uacm.progweb.evaluacionanonima.service.CursoService;
 @Slf4j
 public class CursoServiceImpl implements CursoService {
 	
-	//inyeccion de dependencias
+	
 	@Autowired
 	private CursoRepository cursoRepository;
 
@@ -32,7 +30,7 @@ public class CursoServiceImpl implements CursoService {
 	public Curso guardarCurso(Curso curso) throws AplicacionExcepcion {
 		
 		if(log.isDebugEnabled())
-			log.debug("> Entrando a agregarActividad <");
+			log.debug("> Entrando a agregarActividad");
 		
 		Curso CursoGuardado = null;
 		
@@ -46,11 +44,8 @@ public class CursoServiceImpl implements CursoService {
 			throw new AplicacionExcepcion("Hubo un error al guardar el registro");
 		}
 		
-		
 		return CursoGuardado;
 	}
-
-
 
 	@Override
 	public void eliminarCurso(Curso curso) throws AplicacionExcepcion {
@@ -66,8 +61,5 @@ public class CursoServiceImpl implements CursoService {
 		}
 		
 	}
-
-
-	
 
 }
