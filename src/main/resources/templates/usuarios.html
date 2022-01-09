@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="index::encabezado">
+
+
+</head>
+
+<body style="background-color:#34495E">
+
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin-cat}">Admin Actividades </a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin-cat2}">Admin Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Usuarios</li>
+
+
+                    <li class="nav-item"><a class="nav-link" th:href="@{/usuario/logout}">Cerrar Sesi&oacute;n</a></li>
+
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <h2>Admin Usuarios</h2>
+        
+    </div>
+
+    <div class="container">
+
+        <table class="table table-reponsive table-dark table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Email</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                    <th>Roles</th>
+                    <th>Curso</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="usuario : ${listaDeUsuarios}">
+                    <td>[[${usuario.id}]]</td>
+                    <td>[[${usuario.correo}]]</td>
+                    <td>[[${usuario.nombre}]]</td>
+                    <td>[[${usuario.apellidoPat}]]</td>
+                    <td>[[${usuario.apellidoMat}]]</td>
+                    <td>[[${usuario.rol}]]</td>
+                    <td>[[${usuario.curso}]]</td>
+                    <td>
+                        <a class="fas fa-edit icon-green" th:href="@{'/editar/' +${usuario.id}}" title="Editar un Usuario"></a>                       
+                                               
+                        &nbsp;
+                        <a class="fas fa-trash-alt icon-dark"></a>
+                        
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    <p style="color:#F0F3F4; font-size:18px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De
+        M&eacute;xico</p>
+
+
+
+
+    <th:block th:insert="index::script"></th:block>
+</body>
+
+</html>

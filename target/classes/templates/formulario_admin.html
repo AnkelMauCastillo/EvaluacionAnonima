@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="index::encabezado">
+
+
+</head>
+
+<body style="background-color:#34495E">
+
+    <nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/}">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin-cat}">Admin Actividades </a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/admin-cat2}">Admin Cursos</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/usuarios}">Usuarios</li>
+
+
+                    <li class="nav-item"><a class="nav-link" th:href="@{/usuario/logout}">Cerrar Sesi&oacute;n</a></li>
+
+
+
+                </ul>
+
+            </div>
+        </div>
+    </nav>
+
+    <div>
+        <h2>Registro</h2>
+    </div>
+
+    <form th:action="@{/usuarios/save}" method="post" style="max-width: 500px; margin: 0 auto;" th:object="${usuario}">
+        <div class="border border-secondary round p-3">
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Correo</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" th:field="*{correo}" required minlength="8"
+                        maxlength="128" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Matricula</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{matricula}" required minlength="8"
+                        maxlength="128" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Nombre</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{nombre}" required minlength="2"
+                        maxlength="128" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Apellido Paterno</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{apellidoPat}" required minlength="2"
+                        maxlength="128" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Apellido Materno</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" th:field="*{apellidoMat}" required minlength="2"
+                        maxlength="128" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Password</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" th:field="*{contrasenia}" required minlength="8"
+                        maxlength="20" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-4 col-form-label">Roles</label>
+                <div class="col-sm-8">
+                    <th:block th:each="role : ${listaDeRoles}">
+                        <input type="checkbox" th:field="*{roles}" th:text="${role.nombre}" th:value="${role.id}"
+                            class="m-2" />
+                        - <small>[[${role.descripcion}]]</small>
+                        <br />
+                    </th:block>                  
+                </div>
+            </div>
+                       
+            <div class="text-center">
+                <input type="submit" value="Guardar" class="btn btn-primary m-3" />
+                
+            </div>
+        </div>
+    </form>
+
+
+    <p style="color:#F0F3F4; font-size:18px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De
+        M&eacute;xico</p>
+
+
+
+
+    <th:block th:insert="index::script"></th:block>
+</body>
+
+</html>

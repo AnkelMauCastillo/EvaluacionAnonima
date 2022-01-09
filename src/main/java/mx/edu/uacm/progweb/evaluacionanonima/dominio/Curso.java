@@ -23,7 +23,12 @@ public class Curso {
   private String descripcion;
 
   public Curso() {
-	  
+
   }
-	
+
+  @Override
+  public String toString() {
+    return nombre;
+  }
+
 }

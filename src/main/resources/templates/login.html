@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head th:insert="index::encabezado">
-  
+
 </head>
-<body style="background-color:#34495E"  background="http://www.solofondos.com/wp-content/uploads/2015/11/tableback.jpg">
+
+<body style="background-color:#34495E" background="http://www.solofondos.com/wp-content/uploads/2015/11/tableback.jpg">
 
 
 
@@ -14,40 +15,41 @@
 		<div class="row">
 
 			<div class="col-sm-4 mx-auto">
-				
-					<div th:if="${#servletContext.getAttribute('errorMensaje') != null}">
-					<div class="alert alert-danger alert-dismissible fade show"
-						role="alert">
+
+				<div th:if="${#servletContext.getAttribute('errorMensaje') != null}">
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
 						<strong>[[${#servletContext.getAttribute('errorMensaje')}]]</strong>
-						<button type="button" class="btn-close" data-bs-dismiss="alert"
-							aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 
 				</div>
-				
-			 <h2>Inicia sesi&oacute;n</h2>	
-              
+
+				<h2>Inicia sesi&oacute;n</h2>
+
 				<form id="forma-login" th:action="@{/usuario/login}" method="post">
-               <div class="p-3 mb-2 bg-light text-white">
-					<div class="card">
-						<div class="card-body">
-							<div class="form-label-group">
-								<input id="correo" type="text" name="correo"  placeholder=" Correo" 
-									class="form-control"> <label for="correo"></label>
-							</div>
+					<div class="p-3 mb-2 bg-light text-white">
+						
+						<div class="card">
+							<div class="card-body">
+								
+								<div class="form-label-group">
+									<input id="correo" type="text" name="correo" placeholder=" Correo"
+										class="form-control"> <label for="correo"></label>
+								</div>
 
 
-							<div class="form-label-group">
-								<input id="contrasenia" type="password" name="contrasenia" placeholder="Contrase&ntilde;a"
-									class="form-control"> <label for="contrasenia"></label>
+								<div class="form-label-group">
+									<input id="contrasenia" type="password" name="contrasenia"
+										placeholder="Contrase&ntilde;a" class="form-control"> <label
+										for="contrasenia"></label>
+								</div>
+								<input id="boton" type="submit" class="btn btn-primary" value="Iniciar">
 							</div>
-							<input id="boton" type="submit" class="btn btn-primary" value="Iniciar">
 						</div>
 					</div>
-				</div>
-				
+
 				</form>
-            
+
 
 			</div>
 
@@ -58,4 +60,5 @@
 
 	<th:block th:insert="index::script"></th:block>
 </body>
+
 </html>
