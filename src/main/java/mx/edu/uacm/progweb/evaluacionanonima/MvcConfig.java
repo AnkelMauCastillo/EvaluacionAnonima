@@ -1,12 +1,20 @@
 package mx.edu.uacm.progweb.evaluacionanonima;
 
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+/**  
+ * Registro de las vistas de los controladores
+ * @author Andres Mendoza 
+ *
+ */
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 	
+  /**
+   * registro de las vistas 
+   */
   public void addViewControllers(ViewControllerRegistry registry) {
     registry.addViewController("/").setViewName("index");
     registry.addViewController("/agregar").setViewName("agregarActividad");

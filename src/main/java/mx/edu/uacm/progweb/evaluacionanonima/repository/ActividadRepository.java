@@ -1,15 +1,14 @@
 package mx.edu.uacm.progweb.evaluacionanonima.repository;
 
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+//import org.springframework.data.repository.CrudRepository;
 
 import mx.edu.uacm.progweb.evaluacionanonima.dominio.Actividad;
 
-public interface ActividadRepository extends CrudRepository<Actividad, Long> {
+public interface ActividadRepository extends JpaRepository<Actividad, Long> {
 	
-	Page<Actividad> findAll(Pageable pageable);
+	
 
-	void deleteById(String nombre);
+	
 
 }

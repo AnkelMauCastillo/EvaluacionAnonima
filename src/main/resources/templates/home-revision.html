@@ -4,10 +4,88 @@
 <head th:insert="index::encabezado">
 
 </head>
-<body>
+<body background="https://previews.123rf.com/images/monsitj/monsitj1801/monsitj180100039/93681469-3d-rendering-of-virtual-human-silhouette-on-technology-background-illustration-concept-of-online-edu.jpg">
  <nav th:insert="home2::navbar"></nav>
 
- <h2> Revision de Actividad</h2> <br> 
+
+ <div id="contenedor" class="container" >
+		<div class="row">
+			 <div class="col-sm-5 ">	
+				<h2> Revision de Actividad</h2> <br> 
+                
+				<form id="forma-respuesta" th:action="@{/respuesta/guardar}" method="post">
+
+					<div class="card">
+						<div class="card-body">
+						<div class="input-group mb-3">
+							
+							<div class="selecciona-usuario" >    
+							
+                            <select id="usuario"  onchange="getUsuario(this);;">
+							  <option value=" ">Selecciona Usuario </option>
+							  <th:block th:each = "usua: ${usuarios}">
+								  <option th:text="${usua.correo} " th:value="${usua.id}"></option>
+							  </th:block>
+							</select> 
+							<a id="buscar" th:onclick="obtenerUsuarioSelect();" class="btn btn-success">Buscar</a>
+							</div>
+							<script>
+							</script>
+						</div>	
+							<br>
+							<div class="form-label-group">
+								<input id="github" type="url" name="github" placeholder="Enlace a tu repositorio de github"
+								class="form-control"> <label for="github"></label>
+							</div>
+					
+							
+							<div class="form-label-group">
+								<input id="drive" type="url" name="drive" placeholder="Enlace a tu repositorio de drive"
+								 class="form-control"> <label for="drive"></label>
+							</div>
+							
+							<input id="boton" type="submit" class="btn btn-primary" value="Enviar">
+							
+						</div>
+					</div>
+				</form>
+			</div>
+		 </div>
+     </div>
+
+
+ 
+	<!-- Modal -->
+	<div class="modal fade" id="modalExitosoError" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMensaje">
+						<th:block if="${mensajeExitoso != null}">
+							<p>[[${mensajeExitoso}]]</p>
+						</th:block>
+						<th:block if="${mensajeError != null}">
+							<p>[[${mensajeError}]]</p>
+						</th:block>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success"
+						data-bs-dismiss="modal">Aceptar</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:insert="index::script"></th:block>
+	   
    
 </body>
 </html>

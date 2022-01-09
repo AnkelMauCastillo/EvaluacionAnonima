@@ -1,5 +1,7 @@
 package mx.edu.uacm.progweb.evaluacionanonima.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -62,6 +64,12 @@ public class UsuarioServiceImpl implements UsuarioService {
 		 }
 		 
 		return usuarioGuardado;
+	}
+
+	@Override
+	public List<Usuario> obtenerUsuarios() {
+		
+		return (List<Usuario>)usuarioRepository.findAll();
 	}
 
 }

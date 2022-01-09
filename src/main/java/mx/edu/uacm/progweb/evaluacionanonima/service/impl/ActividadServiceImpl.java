@@ -1,79 +1,84 @@
 package mx.edu.uacm.progweb.evaluacionanonima.service.impl;
 
 import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.uacm.progweb.evaluacionanonima.dominio.Actividad;
 import mx.edu.uacm.progweb.evaluacionanonima.error.AplicacionExcepcion;
 import mx.edu.uacm.progweb.evaluacionanonima.repository.ActividadRepository;
 import mx.edu.uacm.progweb.evaluacionanonima.service.ActividadService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+
 
 @Service
+@Transactional
 @Slf4j
 public class ActividadServiceImpl implements ActividadService {
 	
-	@Autowired
-	private ActividadRepository actividadRepository;
+  @Autowired
+  private ActividadRepository actividadRepository;
+  private Actividad actividad;
+  
+  @Override
+  public List<Actividad> obtenerActividades() {
+    return (List<Actividad>) actividadRepository.findAll();
+  }
+  
+  /**
+   * guarda una actividad a la base de datos 
+   */
+  public Actividad agregarActividad(Actividad actividad) throws AplicacionExcepcion {
 
-	@Override
-	public List<Actividad> obtenerActividades() {
-		
-		return (List<Actividad>) actividadRepository.findAll();
-	}
+    if(log.isDebugEnabled())
+      log.debug("> Entrando a agregarActividad <");
+    Actividad actividadGuardada = null;
+    try {
+      actividadGuardada = actividadRepository.save(actividad);
+    } catch (DataAccessException e) {
+      log.error(e.getMessage());
+      throw new AplicacionExcepcion("Hubo un error al guardar el registro");
+    }
+    return actividadGuardada;
+  }
 
-	
-	public Actividad agregarActividad(Actividad actividad) throws AplicacionExcepcion {
-		
-		if(log.isDebugEnabled())
-			log.debug("> Entrando a agregarActividad <");
-		
-		Actividad ActividadGuardada = null;
-		
-		try {
-			
-			ActividadGuardada = actividadRepository.save(actividad);
-		
-		} catch (DataAccessException e) {
-			log.error(e.getMessage());
-			
-			throw new AplicacionExcepcion("Hubo un error al guardar el registro");
-		}
-		
-		
-		return ActividadGuardada;
-	}
+  @Override
+  public Page<Actividad> obtenerActividadesPaginadas(Pageable pageable) {
+    return actividadRepository.findAll(pageable);
+  }
 
+  @Override
+  public void borrarActividad(Actividad actividad) throws AplicacionExcepcion {
+   
+	if (log.isDebugEnabled())
+      log.debug("> entrando a BorrarActividad ");
+    try { 
+      actividadRepository.delete(actividad);
+    } catch (DataAccessException e) {
+      log.error(e.getMessage());
+      throw new AplicacionExcepcion("Error al eliminar el registro");
+    }
+  }
 
-	@Override
-	public Page<Actividad> obtenerActividadesPaginadas(Pageable pageable) {
-		
-		return actividadRepository.findAll(pageable);
-	}
-
-
-	@Override
-	public void BorrarActividad(Actividad actividad) throws AplicacionExcepcion {
-		if (log.isDebugEnabled())
-			log.debug("> entrando a BorrarActividad ");
-		
-		try { 
-			actividadRepository.delete(actividad);
-			
-		}catch (DataAccessException e) {
-			log.error(e.getMessage());
-			throw new AplicacionExcepcion("Error al eliminar el registro");
-		}
-		
-		
-	}
-
-
-	
-
+  
+  /**
+  *  busqueda por id 
+  * @param id 
+  * @throws Exception 
+   */
+  @Override
+  public Actividad buscarActividad(Long id) throws AplicacionExcepcion  {
+    
+	try {	
+      actividad = actividadRepository.findById(id).get(); 
+    } catch (DataAccessException e) {
+      throw new AplicacionExcepcion("Error");
+    }
+    return actividad;
+  }
+  
 }

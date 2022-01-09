@@ -34,20 +34,6 @@ public class ActividadTest {
 		assertNotNull(actividaGuardada);
 	}
 	
-	@Test
-	public void debeObtenerActividadesPaginadas() {
-		log.debug("> Entrando a debeObtenerActividadesPaginadas <");
-		
-		Pageable pageable = PageRequest.of(0, 5);
-		
-		//pagina 0 que tiene del 0 al 4
-		assertThat(actividadRepository.findAll(pageable)).hasSize(5);
-		
-		//pagina 1 que tiene 5 10
-		Pageable nextPageable = pageable.next();
-		assertThat(actividadRepository.findAll(nextPageable)).hasSize(5);
-		assertThat(nextPageable.getPageNumber()).isEqualTo(1);
-		
-	}
+	
 
 }

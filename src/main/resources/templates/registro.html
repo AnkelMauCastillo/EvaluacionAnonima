@@ -2,15 +2,15 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="index::encabezado">
-
+<title> </title>
 </head>
-<body>
+<body background="http://www.solofondos.com/wp-content/uploads/2015/11/Fondos-para-p%C3%A1ginas-web.jpg">
  <nav th:insert="index::navbar"></nav>
  
  <div id="contenedor" class="container">
 		<div class="row">
-			 <div class="col-sm-4 mx-auto">	
-				<h2> Registro De Usuario</h2> <br> 
+			 <div class="col-sm-5 mx-auto">	
+				<h2 style="color:#F0F3F4;"> Registro De Usuario</h2> <br> 
 				<form id="forma-registro" th:action="@{/usuario/registro}" method="get">
 
 					<div class="card">
@@ -47,25 +47,27 @@
 									class="form-control"> <label for="contrasenia"></label>
 							</div>
 							
-							<div >
-							    
-							    <select id="curso-select" name ="curso-select" onchange="seleccionCurso()" class="form-select" aria-label="Default select example">
-                                
-                                <option value="">Programacion web</option>
-                                <option value="2">Aseguramiento</option>
-                                <option value="3">Sistemas operativos</option>
-                             </select> 
-							</div>
+							<div class="input-group mb-3">
 							
+							<div class="selecciona-curso" >    
+							
+                            <select id="curso" name="curso"  onchange="getCurso(this)">
+							  <option value=" ">Selecciona Curso </option>
+							  <th:block th:each = "curs: ${cursos}">
+								  <option th:text="${curs.nombre}" th:value="${curs.id}"></option>
+							  </th:block>
+							</select> 
+							<a id="buscar" th:onclick="obtenerCursoSelect();" class="btn btn-success">Buscar</a>
+							</div>
+							<script>
+							</script>
+						</div>	
 							<input id="boton" type="submit" class="btn btn-primary" value="Registrar">
 							
 						</div>
 					</div>
 				</form>
-
-
 			</div>
-
 		</div>
     </div>
 	

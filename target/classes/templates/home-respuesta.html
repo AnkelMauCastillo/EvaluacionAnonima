@@ -2,12 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="index::encabezado">
-
+ <title>
+	 Respuesta Actividad
+ </title>	 
 </head>
-<body>
+<body background="https://previews.123rf.com/images/monsitj/monsitj1801/monsitj180100039/93681469-3d-rendering-of-virtual-human-silhouette-on-technology-background-illustration-concept-of-online-edu.jpg">
  <nav th:insert="home2::navbar"></nav>
- 
- <div id="contenedor" class="container">
+
+ <div id="contenedor" class="container" >
 		<div class="row">
 			 <div class="col-sm-5 ">	
 				<h2> Respuesta a Actividad</h2> <br> 
@@ -16,24 +18,31 @@
 
 					<div class="card">
 						<div class="card-body">
+						<div class="input-group mb-3">
 							
-							<div class="form-label-group">
-							    
-							    <select id="actividad-select" name ="actividad-select" onchange="seleccionActividad()" class="form-select" aria-label="Default select example">
-                               
-                  
-                             </select> 
+							<div class="selecciona-actividad" >    
+							
+                            <select id="actividad" name="actividad"  onchange="getActividad(this);;">
+							  <option value=" ">Selecciona Actividad </option>
+							  <th:block th:each = "activ: ${actividades}">
+								  <option th:text="${activ.descripcion}" th:value="${activ.id}"></option>
+							  </th:block>
+							</select> 
+							<a id="buscar" th:onclick="obtenerActividadSelect();" class="btn btn-success">Buscar</a>
 							</div>
+							<script>
+							</script>
+						</div>	
 							<br>
 							<div class="form-label-group">
 								<input id="github" type="url" name="github" placeholder="Enlace a tu repositorio de github"
-								pattern=".+\.com" class="form-control"> <label for="github"></label>
+								class="form-control"> <label for="github"></label>
 							</div>
-							
+					
 							
 							<div class="form-label-group">
-								<input id="dirve" type="url" name="drive" placeholder="Enlace a tu repositorio de drive"
-								pattern=".+\.com" class="form-control"> <label for="drive"></label>
+								<input id="drive" type="url" name="drive" placeholder="Enlace a tu repositorio de drive"
+								 class="form-control"> <label for="drive"></label>
 							</div>
 							
 							<input id="boton" type="submit" class="btn btn-primary" value="Enviar">
@@ -42,11 +51,31 @@
 					</div>
 				</form>
 			</div>
+		 </div>
+     </div>
 
-		</div>
-    </div>
-	
-	
+	 <div>
+		<table  class="table table-light ">
+         <thead>
+             <tr>
+               
+                
+				<th scope="col">Descripcion </th>
+				<th scope= "col">Puntaje</th>
+                
+            </tr>
+         </thead>
+         <tbody>
+    
+            <tr  th:each = "act: ${actividad}">
+				<td  th:text = "${act.objetivos}"></td>
+				<td  th:text = "${act.puntaje}"></td>
+		    </tr>		
+        </tbody>
+    </table>
+</div>
+
+ 
 	<!-- Modal -->
 	<div class="modal fade" id="modalExitosoError" tabindex="-1"
 		aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -77,5 +106,6 @@
 	</div>
 	
 	<th:block th:insert="index::script"></th:block>
+	   
 </body>
 </html>

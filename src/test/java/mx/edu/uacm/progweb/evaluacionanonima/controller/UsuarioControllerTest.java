@@ -23,7 +23,7 @@ public class UsuarioControllerTest {
 	public void debeLogin() throws Exception{
 		log.debug("entrando a logeo");
      mo.perform(post("/usuario/login")
-    		    .param("correo", "sergio@uacm.eu.mx")
+    		    .param("correo", "sergio@uacm.edu.mx")
     		    .param("contrasenia", "1234")
     		    ).andExpect(redirectedUrl("/home"));
          

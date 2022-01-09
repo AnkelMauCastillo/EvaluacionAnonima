@@ -1,11 +1,3 @@
-function seleccionarCurso(){
-	var cod = document.getElementsById("curso-select");
-	var selected = cod.options[combo.selectedIndex].text
-	alert(selected);
-	
-};
-
-
 
 var iniciarSesion = function() {
 	
@@ -73,7 +65,7 @@ $(document).ready(function () {
         min: jQuery.validator.format("Por favor, escribe un valor mayor o igual a {0}.")
     });
 	
-	
+	// ***************** Formularios ***************************************************
 	
 	//una peticion via AJAX 
 	$("#forma-login").submit(function(e) {
@@ -84,7 +76,8 @@ $(document).ready(function () {
 	rules: {
 		correo: {
 			required: true,
-			maxlength: 100
+			maxlength: 100,
+			email: true 
 		},
 		contrasenia: {
 			required: true
@@ -122,7 +115,8 @@ $(document).ready(function () {
 	rules: {
 		correo: {
 			required: true,
-			maxlength: 100
+			maxlength: 100,
+			email: true 
 		},
 		contrasenia: {
 			required: true
@@ -139,7 +133,11 @@ $(document).ready(function () {
 		},
 		matricula:{
 			required:true
+		},
+		curso:{
+			required:true
 		}
+
 	},
 	errorPlacement: function(error, element) {
 		error.appendTo(element.parent());
@@ -152,10 +150,10 @@ $(document).ready(function () {
 	var matricula = $("#matricula").val();
 	var correo = $("#correo").val();
 	var password = $("#contrasenia").val(); 
-        
+    var curso  =$("#curso").val();    
 		
 		$.get("/usuario/registro", {'nombre':nombre,'apellidoPat':apellidopat,'apellidoMat':apellidomat,'matricula':matricula,
-	       'correo':correo, 'contrasenia':password },  function( fragmento ) {
+	       'correo':correo, 'contrasenia':password, 'curso':curso },  function( fragmento ) {
 
 				
 				
@@ -212,7 +210,8 @@ $(document).ready(function () {
 	});
 	
 	
-	//una peticion via AJAX 
+	//agragar actividada 
+	
 	$("#agregar-actividad-forma").submit(function(e) {
 		
 		e.preventDefault();
@@ -279,7 +278,11 @@ $(document).ready(function () {
 			required: true
 		},
 		github: {
-			required: true
+			required: true,
+			url : true
+		},
+		drive:{
+			url : true
 		}
 	},
 	errorPlacement: function(error, element) {
@@ -291,12 +294,9 @@ $(document).ready(function () {
 	var github = $("#github").val();
 	var drive = $("#drive").val();
 	 
-        
-		
 		$.post("/respuesta/guardar", {'github':github,'drive':drive,'actividad':actividad},  function( fragmento ) {
-
 				
-				
+			
 				$('#modalMensaje').replaceWith(fragmento);
 				
 				var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
@@ -308,23 +308,98 @@ $(document).ready(function () {
 	}
 
 	});
+	// eliminacion de actividades 
 	
- // funciones 	
-  function seleccionaActividad(){
-	var id_actividad = $("seleccionarActividad").val();
-	
-	
-	$.ajax ({
-		 type: "GET",
-		 url:"/curso/buscar",
-		 beforeSend: function(objeto){
+	$("#borrar-actividad").submit(function(e) {
+		
+		e.preventDefault();
+		
+	}).validate({
+	rules: {
+		id: {
+			required: true,
+			number: true
+		}
+	},
+	errorPlacement: function(error, element) {
+		error.appendTo(element.parent());
+	},
+	submitHandler: function(form) {
 			
-		},success:function(data){
-			$("#actividad-select").html(data);
+		var id_actividad = $("#id").val();
+	    $.get("/actividad/eliminaractividad", {'id':id_actividad}, function(fragmento){
+		
+		$('#modalMensaje').replaceWith(fragmento);
+				
+				var myModalExample = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalBorrarActividad'));
+				myModalExample.hide();
+				var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
+				myModal.show();
+	
+	});
+	  return false;
 		}
 	});
-};
+	
+	// borrado de cursos 
+	
+	$("#borrar-curso").submit(function(e) {
+		
+		e.preventDefault();
+		
+	}).validate({
+	rules: {
+		id: {
+			required: true
+		}
+	},
+	errorPlacement: function(error, element) {
+		error.appendTo(element.parent());
+	},
+	submitHandler: function(form) {
+			
+		var id_curso = $("#id").val();
+	    $.get("curso/eliminarcurso", {'id':id_curso}, function(fragmento){
+		
+		setTimeout(function(){
+			$("#modalBorrar").modal("hide").fadeIn("slow");
+		},1500);
+		
+		$('#modalMensaje').replaceWith(fragmento);
+				
+	    var myModal = bootstrap.Modal.getOrCreateInstance(document.querySelector('#modalExitosoError'));
+			myModal.show();
+	
+	});
+	  return false;
+		}
+	});
+	
+	
+ //************************** */ funciones *****************	
+
  
+ // obtencion de cursos y actividades para su gestion
+ 
+  getActividad = function (selectObject) {
+    var value = selectObject.value;  
+   //console.log(value);
+    $.get("/actividad/buscara", {'id':value},function (fragmento){ 
+		 var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+	});
+  }
+	 
+   getCurso = function (selectObject) {
+    var value = selectObject.value;  
+    console.log(value);
+  }
+
+   getUsuario = function (selectObject) {
+    var value = selectObject.value;  
+    console.log(value);
+  }
   obtenerCursos = function() {
 	
 		$.get("/curso/buscar", {}, function(fragmento){
@@ -335,6 +410,7 @@ $(document).ready(function () {
 		});
 	
 	};
+	
 	obtenerActividades = function() {
 	
 		$.get("/actividad/buscar", {}, function(fragmento){
@@ -345,13 +421,44 @@ $(document).ready(function () {
 		});
 	
 	};
-
 	
+	// obtencion de los usuarios para el select de evaluación 
+	obtenerUsuarioSelect = function () {
 
-    
+		$.get("/usuario/buscar",{}, function(fragmento){
+
+        var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+		});
+	};		
+  
+	
    
-   
-    
+	// obtencion de los cursos para el formulario de registro 
+	obtenerCursoSelect = function() {
+	
+		$.get("/curso/buscars", {}, function(fragmento){
+			 	var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+			
+		});
+  
+	};
+	// obtencion de actividades para el select de respuestas 
+  obtenerActividadSelect = function() {
+	
+		$.get("/actividad/buscars", {}, function(fragmento){
+			 	var newDoc = document.open("text/html", "replace");
+				newDoc.write(fragmento);
+				newDoc.close();
+			
+		});
+
+	};
+	
+	
     
    });
    

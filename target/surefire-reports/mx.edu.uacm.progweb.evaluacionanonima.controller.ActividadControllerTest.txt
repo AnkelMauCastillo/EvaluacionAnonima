@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: mx.edu.uacm.progweb.evaluacionanonima.controller.ActividadControllerTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 14.968 s <<< FAILURE! - in mx.edu.uacm.progweb.evaluacionanonima.controller.ActividadControllerTest
+debeBorrarActividad  Time elapsed: 0.78 s  <<< ERROR!
+org.springframework.web.util.NestedServletException: Request processing failed; nested exception is java.util.NoSuchElementException: No value present
+	at mx.edu.uacm.progweb.evaluacionanonima.controller.ActividadControllerTest.debeBorrarActividad(ActividadControllerTest.java:32)
+Caused by: java.util.NoSuchElementException: No value present
+	at mx.edu.uacm.progweb.evaluacionanonima.controller.ActividadControllerTest.debeBorrarActividad(ActividadControllerTest.java:32)
+

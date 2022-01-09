@@ -4,7 +4,7 @@
 <head th:insert="index::encabezado">
 
 </head>
-<body>
+<body style="background-color:#34495E">
 
 	<nav th:fragment="navbar"
 		class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,8 +33,13 @@
 			</div>
 		</div>
 	</nav>
-
-	Inicie sesi&oacute;
-	<th:block th:insert="index::script"></th:block>
+     
+	 
+	<p style="color:#F0F3F4; font-size:18px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De M&eacute;xico</p>
+     
+      <img src = "https://www.uacm.edu.mx/portals/_default/skins/ccyt/imagenes/index/logo_ccyt.png"alt ="no se encontro la imagen"> </img>
+	
+	<p style="color:#F0F3F4; font-size:18px;text-align:center"> Bienvenido Administrador</p>
+	  <th:block th:insert="index::script"></th:block>
 </body>
 </html>
