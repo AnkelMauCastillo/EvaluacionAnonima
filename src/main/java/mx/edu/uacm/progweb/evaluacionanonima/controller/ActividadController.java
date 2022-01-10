@@ -3,14 +3,22 @@ package mx.edu.uacm.progweb.evaluacionanonima.controller;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.uacm.progweb.evaluacionanonima.dominio.Actividad;
+import mx.edu.uacm.progweb.evaluacionanonima.dominio.Usuario;
 import mx.edu.uacm.progweb.evaluacionanonima.error.AplicacionExcepcion;
 import mx.edu.uacm.progweb.evaluacionanonima.service.ActividadService;
+import mx.edu.uacm.progweb.evaluacionanonima.service.UsernNotFoundException;
+
+import org.hibernate.engine.query.spi.ReturnMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 
@@ -44,7 +52,7 @@ public class ActividadController {
     try {
       actividadGuardada = actividadService.agregarActividad(actividad);
       if (actividadGuardada != null && actividadGuardada.getId() != null)
-        model.addAttribute("mensajeExitoso", "Acitivdad guardada exitosamente!");
+        model.addAttribute("mensajeExitoso", "Actividad guardada exitosamente!");
     } catch (AplicacionExcepcion e) {
       log.error(e.getMessage());
       model.addAttribute("mensajeError", e.getMessage());
@@ -109,6 +117,12 @@ public class ActividadController {
     return "home-respuesta";
   }
   
+  /**
+   * busca una actividad por su id 
+   * @param model
+   * @param actividad
+   * @throws AplicacionExcepcion
+   */
   @GetMapping("/buscara")
   public void buscarActividad(Model model, Actividad actividad) throws AplicacionExcepcion {
     if (log.isDebugEnabled())
@@ -128,5 +142,46 @@ public class ActividadController {
       }
     
   }
+  
+  /**
+   * edita la actividad 
+   * @param id
+   * @param attributes
+   * @param model
+   * @return
+ * @throws Exception 
+   */
+  @GetMapping("/editarActividad/{id}")
+  public String editaActividad(@PathVariable("id") Long id, Model model) throws Exception {
+	  if (log.isDebugEnabled()) {
+	      log.debug("> Entrando a Actividadcontroller.editarActividadBusca");
+	    
+	    }
+    Actividad actividadEncontrada = actividadService.buscarActividad(id);
+	model.addAttribute("actividadEncontrada", actividadEncontrada); 	
+	return "edita-actividad";	
+  }
+  
+  @PostMapping("/editarA")
+  public String edita(@Validated @ModelAttribute("actividad")  Actividad actividad, Model model ) {
+	  if (log.isDebugEnabled()) {
+	      log.debug("> Entrando a Actividadcontroller.editarA");
+	      log.debug("actividad {}",  actividad);
+	    }
+	  try {
+		  
+		  actividadService.modificarActividad(actividad);
+		  model.addAttribute("actividad", actividad);
+		  model.addAttribute("mensajeExitoso", "Actividad modificada exitosamente!");
+		  
+		 
+	  }catch (Exception e) {
+		  log.error(e.getMessage()); 
+	      model.addAttribute("mensajeError", e.getMessage());
+		 
+	  }
+	  return "redirect:/admin-cat";
+  }
+  
 	
 }

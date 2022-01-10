@@ -39,5 +39,5 @@ public interface ActividadService {
     
   Actividad buscarActividad(Long id) throws Exception;
 	
-
+  Actividad modificarActividad(Actividad atividad) throws Exception;
 }

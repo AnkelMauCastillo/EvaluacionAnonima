@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:insert="index::encabezado">
+
+<title> </title>
+</head>
+<body style="background-color:#34495E">
+ <nav th:insert="home::navbar"></nav>
+ 
+ <div id="contenedor" class="container">
+		<div class="row">
+			 <div class="col-sm-6 mx-auto">	
+				<h2 style="color:#F0F3F4;"> Edita Actividad</h2> <br> 
+				<form id="edita-actividad-forma" th:action="@{/actividad/editarA}" method="post">
+					 <input type="hidden" th:field="${actividadEncontrada.id}">
+					 <input type="hidden" th:field="${actividadEncontrada.curso}"
+					<div class="card">
+						<div class="card-body">
+						
+						<div class="form-label-group">
+							<input type="text" class="form-control"
+								th:field="${actividadEncontrada.descripcion}"
+								id="descripcion" name="descripcion">
+						</div>
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" th:field="${actividadEncontrada.objetivos}"
+								id="objetivos"
+								name="objetivos"> 
+						</div>
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" th:field="${actividadEncontrada.puntosEvaluar}"
+								id="puntosEvaluar" name="puntosEvaluar"> 
+						</div>
+
+
+						<div class="form-label-group">
+							<input type="text" class="form-control" th:field="${actividadEncontrada.puntaje}"
+							id="puntaje" name="puntaje"> 
+						</div>
+					    <div>	
+							<input id="boton" type="submit" class="btn btn-primary" value="Guardar">
+							
+						</div>
+						
+						</div>	
+							
+					</div> 
+				</form>
+			</div>
+		</div>
+    </div>
+	
+	
+	<!-- Modal -->
+	<div class="modal fade" id="modalExitosoError" tabindex="-1"
+		aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mensaje</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<div id="modalMensaje">
+						<th:block if="${mensajeExitoso != null}">
+							<p>[[${mensajeExitoso}]]</p>
+						</th:block>
+						<th:block if="${mensajeError != null}">
+							<p>[[${mensajeError}]]</p>
+						</th:block>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-success"
+						data-bs-dismiss="modal">Aceptar</button>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<th:block th:insert="index::script"></th:block>
+</body>
+</html>
