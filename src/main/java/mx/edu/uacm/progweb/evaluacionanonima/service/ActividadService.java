@@ -38,6 +38,7 @@ public interface ActividadService {
   void borrarActividad(Actividad actividad) throws AplicacionExcepcion ;
     
   Actividad buscarActividad(Long id) throws Exception;
-	
+  
+  Actividad modificarActividad(Actividad atividad) throws Exception;
 
 }

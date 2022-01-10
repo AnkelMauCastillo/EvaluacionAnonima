@@ -81,4 +81,23 @@ public class ActividadServiceImpl implements ActividadService {
     return actividad;
   }
   
+  /**
+   *modifica la activdad 
+   */
+  @Override
+  public Actividad modificarActividad(Actividad actividad) throws Exception {
+	  
+    Actividad actividadGuardar = buscarActividad(actividad.getId());
+    modificar(actividad,actividadGuardar);
+    return actividadRepository.save(actividadGuardar);
+	
+  }
+  
+  public void modificar(Actividad actividad1 , Actividad actividad2) {
+	  actividad2.setDescripcion(actividad2.getDescripcion());
+	  actividad2.setObjetivos(actividad1.getObjetivos());
+	  actividad2.setPuntosEvaluar(actividad1.getPuntosEvaluar());
+	  actividad2.setPuntaje(actividad2.getPuntaje());
+  }
+  
 }

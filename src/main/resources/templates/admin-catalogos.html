@@ -46,8 +46,9 @@
                   
 				</td>
 				<td >
-				 <a  data-bs-toggle="modal" data-bs-target="#modalBorrarActividad" class="btn btn-danger">Eliminar</a>
-				  <!--  <a  th:onclick="modificarActividad();"class="btn btn-warning">Modificar</a> -->
+				 <a  data-bs-toggle="modal" data-bs-target="#modalBorrarActividad" class="fas fa-trash-alt icon-dark"></a>
+				
+				 <a  th:href="@{'/actividad/editarActividad/' + ${actividad.id}}" class="fas fa-edit icon-green"></a> 
 				 </td>
 		      </tr>		
            </tbody>
