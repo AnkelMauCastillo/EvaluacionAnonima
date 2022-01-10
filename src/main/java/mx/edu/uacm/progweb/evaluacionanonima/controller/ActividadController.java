@@ -3,9 +3,11 @@ package mx.edu.uacm.progweb.evaluacionanonima.controller;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import mx.edu.uacm.progweb.evaluacionanonima.dominio.Actividad;
+import mx.edu.uacm.progweb.evaluacionanonima.dominio.Curso;
 import mx.edu.uacm.progweb.evaluacionanonima.dominio.Usuario;
 import mx.edu.uacm.progweb.evaluacionanonima.error.AplicacionExcepcion;
 import mx.edu.uacm.progweb.evaluacionanonima.service.ActividadService;
+import mx.edu.uacm.progweb.evaluacionanonima.service.CursoService;
 import mx.edu.uacm.progweb.evaluacionanonima.service.UsernNotFoundException;
 
 import org.hibernate.engine.query.spi.ReturnMetadata;
@@ -34,7 +36,9 @@ public class ActividadController {
 	
   @Autowired
   private ActividadService actividadService;
-	
+  @Autowired
+  private CursoService cursoService;
+  
   /**
    * 	
    * @param model
@@ -47,6 +51,7 @@ public class ActividadController {
       log.debug("> Entrando a ActividadController.guardarActividad");
       log.debug("Actividad {}", actividad);
     }
+   
     Actividad actividadGuardada = null;
 
     try {
@@ -71,7 +76,10 @@ public class ActividadController {
     if (log.isDebugEnabled())
       log.debug("> Entrando a buscar actividades <");
     List<Actividad> actividades = actividadService.obtenerActividades();
+    List<Curso>cursos =cursoService.obtenerCursos();
+    
     model.addAttribute("actividades", actividades);
+    model.addAttribute("cursos", cursos);
     return "admin-catalogos";
   }
   

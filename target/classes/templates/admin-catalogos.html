@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head th:insert="index::encabezado">
@@ -13,8 +13,7 @@
 			<div class="row">
 				<div class="col-sm-9">
 					<div class="input-group mb-3">
-						<input type="text" class="form-control" placeholder="Buscar"
-							aria-label="Buscar" aria-describedby="basic-addon2">
+						
 						<a th:onclick="obtenerActividades();" class="btn btn-secondary">Buscar</a>
 					</div>
 				</div>
@@ -68,8 +67,7 @@
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
-				<form id="agregar-actividad-forma" th:action="@{/actividad/guardar}" 
-					method="post">
+				<form id="agregar-actividad-forma" th:action="@{/actividad/guardar}" th:object="${cursos}"method="post">
 					<div class="modal-body">
 						<div class="input-group mb-3">
 							
@@ -81,7 +79,7 @@
 								  <option th:text="${curs.nombre}" th:value="${curs.id}"></option>
 							  </th:block>
 							</select> 
-							<a id="buscar" th:onclick="obtenerCursoA();" class="btn btn-success">Buscar</a>
+							
 							</div>
 							
 						</div>

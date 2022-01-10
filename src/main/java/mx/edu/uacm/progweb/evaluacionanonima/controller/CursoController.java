@@ -107,17 +107,4 @@ public class CursoController {
     return "registro";
   }
   
-  /**
-   * busca los cursos para el select del registro de actividades  
-   * @param model
-   * @return
-   */
-  @GetMapping("/buscarCA")
-  public String buscarcA(Model model) {
-    if (log.isDebugEnabled())
-      log.debug("> Entrando a buscarcursos-select<");
-    List<Curso> cursos = cursoService.obtenerCursos();
-    model.addAttribute("cursos", cursos);
-    return "admin-catalogos::#modalActividad";
-  }
 }
