@@ -36,7 +36,10 @@
 
     <div>
         <h2>Admin Usuarios</h2>
-        
+
+    </div>
+    <div th:if="${mensaje != null}" class="alert alert-success text-center">
+        [[${mensaje}]]
     </div>
 
     <div class="container">
@@ -64,17 +67,41 @@
                     <td>[[${usuario.rol}]]</td>
                     <td>[[${usuario.curso}]]</td>
                     <td>
-                        <a class="fas fa-edit icon-green" th:href="@{'/editar/' +${usuario.id}}" title="Editar un Usuario"></a>                       
-                                               
+                        <a class="fas fa-edit icon-green" th:href="@{'/editar/' + ${usuario.id}}"
+                            title="Editar un Usuario"></a>
+
                         &nbsp;
-                        <a class="fas fa-trash-alt icon-dark"></a>
-                        
+                        <a class="fas fa-trash-alt icon-dark link-delete"
+                            th:href="@{'/usuarios/borrar/' + ${usuario.id}}" 
+                            th:usuarioId="${usuario.id}"
+                            data-bs-toggle="modal"
+                            data-bs-target="#modalBorrar"></a>
+
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
+    <!-- modal para el borrado -->
+    <!-- Modal -->
+    <div class="modal fade" id="modalBorrar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Borrar Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="confirmText">
+                    
+                </div>
+                <div class="modal-footer">                      
+                    <a class="btn btn-success" id="siButton" href="">Si</a>                  
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>                   
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 
     <p style="color:#F0F3F4; font-size:18px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De
         M&eacute;xico</p>

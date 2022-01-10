@@ -57,4 +57,16 @@ public class UsuarioService2 {
 		
 	}
 	
+	public void delete(Long id) throws UsernNotFoundException {
+		Long countById = repository.countById(id);
+		
+		if (countById == null || countById == 0) {
+			
+			throw new UsernNotFoundException("no se pudo encontrar ningún usuario con el ID" + id);
+						
+		}
+		
+		repository.deleteById(id);
+	}
+	
 }
