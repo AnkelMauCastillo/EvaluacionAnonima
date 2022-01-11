@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<head th:insert="index::encabezado">
+
 
 </head>
 
@@ -36,23 +35,27 @@
     </nav>
 
     <div>
-        <h2>Registro</h2>
+       
     </div>
 
     <form th:action="@{/usuarios/save}" method="post" style="max-width: 500px; margin: 0 auto;" th:object="${usuario}">
         <div class="border border-secondary round p-3">
+            <h2>Registro</h2>
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Correo</label>
-                <div class="col-sm-8">
+                <div class="col-sm-8 ">
+                     
                     <input type="email" class="form-control" th:field="*{correo}" required minlength="8"
                         maxlength="128" />
                 </div>
             </div>
-
+             <input type="hidden" th:field="*{id}">
+             <input type= "hidden" th:field="*{curso}">
+             <input type= "hidden" th:field="*{rol}">
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Matricula</label>
                 <div class="col-sm-8">
-                    <input type="hidden" class="form-control" th:field="*{matricula}" required minlength="8"
+                    <input type="text" class="form-control" th:field="*{matricula}" required minlength="8"
                         maxlength="128" />
                 </div>
             </div>
@@ -60,7 +63,7 @@
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Nombre</label>
                 <div class="col-sm-8">
-                    <input type="hidden" class="form-control" th:field="*{nombre}" required minlength="2"
+                    <input type="text" class="form-control" th:field="*{nombre}" required minlength="2"
                         maxlength="128" />
                 </div>
             </div>
@@ -68,7 +71,7 @@
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Apellido Paterno</label>
                 <div class="col-sm-8">
-                    <input type="hidden" class="form-control" th:field="*{apellidoPat}" required minlength="2"
+                    <input type="text" class="form-control" th:field="*{apellidoPat}" required minlength="2"
                         maxlength="128" />
                 </div>
             </div>
@@ -76,7 +79,7 @@
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Apellido Materno</label>
                 <div class="col-sm-8">
-                    <input type="hidden" class="form-control" th:field="*{apellidoMat}" required minlength="2"
+                    <input type="text" class="form-control" th:field="*{apellidoMat}" required minlength="2"
                         maxlength="128" />
                 </div>
             </div>
@@ -84,7 +87,7 @@
             <div class="form-group">
                 <label class="col-sm-4 col-form-label">Password</label>
                 <div class="col-sm-8">
-                    <input type="password" class="form-control" th:field="*{contrasenia}" required minlength="8"
+                    <input type="hidden" class="form-control" th:field="*{contrasenia}" required minlength="8"
                         maxlength="20" />
                 </div>
             </div>
@@ -97,31 +100,35 @@
                             class="m-2" />
                         - <small>[[${role.descripcion}]]</small>
                         <br />
-                    </th:block>
+                    </th:block>                  
                 </div>
             </div>
-
+                       
             <div class="text-center">
                 <input type="submit" value="Guardar" class="btn btn-primary m-3" />
-
+                
             </div>
         </div>
     </form>
 
 
-    <p style="color:#F0F3F4; font-size:18px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De
+    <p style="color:black; font-size:20px;text-align:center"> Universidad Aut&oacute;noma De La Ciudad De
         M&eacute;xico</p>
 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+	<th:block th:fragment="script">
+		<script src="webjars/jquery/3.6.0/jquery.min.js" type="text/javascript"></script>
+		<script src="webjars/bootstrap/5.1.3/js/bootstrap.min.js"
+			type="text/javascript"></script>
+		<script src="js/Evaluacion.js" type="text/javascript"></script>
+		
+	<script
+		th:src="@{webjars/jquery-validation/1.19.3/jquery.validate.min.js}"
+		type="text/javascript"></script>
+	</th:block>
 
 
-
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
-        integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
-        crossorigin="anonymous"></script>
-    <script src="{id}/js/Evaluacion.js" type="text/javascript"></script>
+    <th:block th:insert="index::script"></th:block>
 </body>
 
 </html>

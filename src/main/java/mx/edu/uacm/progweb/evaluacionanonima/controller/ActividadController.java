@@ -125,31 +125,7 @@ public class ActividadController {
     return "home-respuesta";
   }
   
-  /**
-   * busca una actividad por su id 
-   * @param model
-   * @param actividad
-   * @throws AplicacionExcepcion
-   */
-  @GetMapping("/buscara")
-  public void buscarActividad(Model model, Actividad actividad) throws AplicacionExcepcion {
-    if (log.isDebugEnabled())
-      log.debug("> Entrando a buscarActividad <");
-    
-    try {
-        Actividad actividad2 = actividadService.buscarActividad(actividad.getId());
-        if (actividad2 != null) {
-          
-          model.addAttribute("actividad", actividad);
-        } 
-      } catch (AplicacionExcepcion  e) {
-        log.error(e.getMessage());
-        model.addAttribute("mensajeError", e.getMessage());
-      } catch (Exception e) {
-        model.addAttribute("mensajeError", "Error: Actividad no encontrada");
-      }
-    
-  }
+  
   
   /**
    * edita la actividad 

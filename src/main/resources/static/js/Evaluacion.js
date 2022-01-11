@@ -451,11 +451,8 @@ $(document).ready(function () {
 	getActividad = function (selectObject) {
 		var value = selectObject.value;
 		//console.log(value);
-		$.get("/actividad/buscara", { 'id': value }, function (fragmento) {
-			var newDoc = document.open("text/html", "replace");
-			newDoc.write(fragmento);
-			newDoc.close();
-		});
+		
+	
 	}
 
 	getCurso = function (selectObject) {

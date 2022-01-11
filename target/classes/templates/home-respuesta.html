@@ -22,7 +22,7 @@
 							
 							<div class="selecciona-actividad" >    
 							
-                            <select id="actividad" name="actividad"  onchange="getActividad(this);;">
+                            <select id="actividad" name="actividad"  onchange="getActividad(this);">
 							  <option value=" ">Selecciona Actividad </option>
 							  <th:block th:each = "activ: ${actividades}">
 								  <option th:text="${activ.descripcion}" th:value="${activ.id}"></option>
@@ -61,13 +61,15 @@
                
                 
 				<th scope="col">Descripcion </th>
+				<th scope="col">Objetivos</th>
 				<th scope= "col">Puntaje</th>
                 
             </tr>
          </thead>
          <tbody>
     
-            <tr  th:each = "act: ${actividad}">
+            <tr  th:each = "act: ${actividades}">
+				<td th:text = "${act.descripcion}"></td>
 				<td  th:text = "${act.objetivos}"></td>
 				<td  th:text = "${act.puntaje}"></td>
 		    </tr>		
