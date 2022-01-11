@@ -5,13 +5,13 @@
 
 <title> </title>
 </head>
-<body style="background-color:#B3B6B7">
+<body style="background-color:#34495E">
  <nav th:insert="home::navbar"></nav>
  
  <div id="contenedor" class="container">
 		<div class="row">
 			 <div class="col-sm-6 mx-auto">	
-				<h2 style="color:black;"> Edita Actividad</h2> <br> 
+				<h2 style="color:#F0F3F4;"> Editar Actividad</h2> <br> 
 				<form id="edita-actividad-forma" th:action="@{/actividad/editarA}" method="post">
 					 <input type="hidden" th:field="${actividadEncontrada.id}">
 					 <input type="hidden" th:field="${actividadEncontrada.curso}">
